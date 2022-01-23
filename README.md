@@ -515,4 +515,11 @@ int main(int argc, char *argv[])
     return a.exec();
 }
 ```
+## Capture démonstrative :
+ > createfile.ui : 
+![createfile](https://user-images.githubusercontent.com/96379214/150688438-a5dbab76-f4d9-4422-a12e-6ccef035fe55.png)
+
+
+> newTask.ui : 
+ ![newTask](https://user-images.githubusercontent.com/96379214/150688532-3cf550e5-6c5c-487f-9340-0059f2ca45ba.png)
 
