@@ -524,4 +524,7 @@ int main(int argc, char *argv[])
 > newTask.ui : 
 
  ![newTask](https://user-images.githubusercontent.com/96379214/150688532-3cf550e5-6c5c-487f-9340-0059f2ca45ba.png)
+ 
+ ## App 
+![App](https://user-images.githubusercontent.com/96379214/150695985-701fb170-5d5e-4fb8-a62c-9fae03da6222.png)
 
