@@ -501,3 +501,18 @@ Option
     ChangeFile->setShortcut(tr("Ctrl+R"));
     connect(ChangeFile, &QAction::triggered, this, &app::changeFile);
 ```
+## Main.cpp
+ ```ts
+#include "app.h"
+#include <QApplication>
+
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    app w;
+    w.show();
+
+    return a.exec();
+}
+```
+
