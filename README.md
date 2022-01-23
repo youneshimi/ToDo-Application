@@ -116,22 +116,20 @@ private:
 
 app::app()
 {
-    // This is the default path, but if it does not exist, you can change it into the program
+   
     path = "/Users/Younes Imane /database.txt";
     QWidget *widget = new QWidget;
     setCentralWidget(widget);
 
 
-    // Filters
+    
     QHBoxLayout *filtersLayout = new QHBoxLayout;
     createFilters(filtersLayout);
-    //filtersLayout->setContentsMargins();
 
     setWindowTitle("My To-do List");
     setMinimumSize(480, 320);
     resize(580, 480);
 
-    //Table
     table = new QTableWidget(this);
     initializeTable();
 
@@ -148,12 +146,9 @@ app::app()
 
 
 
-    //creating actions
     createActions();
 
-    //creating Menu
     createMenus();
-    //creating toolbar
     createtoolBar();
 
 }
@@ -162,7 +157,6 @@ app::app()
 
 void app::createActions()
 {
-    // add task
     QPixmap AddIcon("://add.png");
     AddTask=new QAction(AddIcon,"&Add Task",this);
     AddTask->setShortcut(tr("Ctrl+N"));
@@ -170,30 +164,26 @@ void app::createActions()
         AddTask->setEnabled(false);
     }
   connect(AddTask, &QAction::triggered, this,&app::addTask);
-    //create file
+   
     QPixmap CreateIcon("://create.png");
     CreateFile = new QAction(CreateIcon,"&Create &File",this);
     CreateFile->setShortcut(tr("Ctrl+E"));
      connect(CreateFile, &QAction::triggered, this, &app::Newfile);
 
 
-    // Exit
-    //lui choisir une icone
+   
      QPixmap ExitIcon("://exit.png");
-    //lui choisir un nom
+
      Exit=new QAction(ExitIcon,"&Exit",this);
-    //lui choisir un reccoursi
      Exit->setShortcut(tr("Ctrl+Q"));
       connect(Exit,&QAction::triggered,this,&app::close);
-// option
-    //change file
+    
     QPixmap ChangeIcon("://change.png");
     ChangeFile=new QAction(ChangeIcon,"Change &File",this);
     ChangeFile->setShortcut(tr("Ctrl+R"));
     connect(ChangeFile, &QAction::triggered, this, &app::changeFile);
 
 
- //Help
 
      QPixmap AboutQtIcon("://info qt.png");
      AboutQt= new QAction(AboutQtIcon,"&AboutQt",this);
@@ -201,18 +191,15 @@ void app::createActions()
 }
 void app::createMenus()
 {
-    //file
     File = menuBar()->addMenu("&File");
     File->addAction(AddTask);
     File->addAction(CreateFile);
     File->addAction(Exit);
 
-    //edit
 
     Option= menuBar()->addMenu("&Option");
     Option->addAction(ChangeFile);
 
-    //help
 
     Help = menuBar()->addMenu("&Help");
     Help->addAction(AboutQt);
@@ -222,13 +209,11 @@ void app::createMenus()
 void app::createtoolBar()
 {
     auto tool1=addToolBar("File");
-//cree une toolbar
     tool1->addAction(CreateFile);
 
-//cree une autre tool Bar
+
     auto tool2=addToolBar("Option");
     tool2->addAction(ChangeFile);
-//cree une autre tool bar
     auto tool3=addToolBar("File");
     tool3->addAction(Exit);
 }
@@ -289,7 +274,6 @@ void app::initializeTable()
     table -> setSelectionMode(QAbstractItemView::SingleSelection);
     table -> setStyleSheet("QTableView {selection-background-color: #E0F7FA; selection-color: #000000;}");
 
-    //inserting data
     updateTable(IOManager::readFile(path));
 
     connect( table, SIGNAL( cellDoubleClicked (int, int) ), this, SLOT( cellSelected( int, int ) ) );
@@ -349,7 +333,6 @@ void app::updateTable(vector<string*> data){
     for(i=0; i<data.size(); i++){
         QCheckBox *qcb = new QCheckBox;
         qcb->setStyleSheet(QStringLiteral("QCheckBox::indicator {subcontrol-position: center;}"));
-        // Set the checkbox as not editable and check it if necessary
         qcb->setAttribute(Qt::WA_TransparentForMouseEvents, true);
         qcb->setFocusPolicy(Qt::NoFocus);
         qcb -> setChecked(stoi(data.at(i)[2]) == 100);
@@ -430,11 +413,11 @@ int app::getWeekNumber(tm t)
     nnow = mktime(mauxdate);
     mauxdate =  gmtime(&nnow);
 
-    int julian = t.tm_yday;  // Jan 1 = 1, Jan 2 = 2, etc...
-    int dow = t.tm_wday;     // Sun = 0, Mon = 1, etc...
-    int dowJan1 = mauxdate->tm_wday;   // find out first of year's day
-    int weekNum = ((julian + 6) / 7);   // probably better.  CHECK THIS LINE. (See comments.)
-    if (dow < dowJan1){                 // adjust for being after Saturday of week #1
+    int julian = t.tm_yday;  
+    int dow = t.tm_wday;     
+    int dowJan1 = mauxdate->tm_wday;   
+    int weekNum = ((julian + 6) / 7);   
+    if (dow < dowJan1){                 
         ++weekNum;
     }
     return weekNum;
@@ -457,4 +440,64 @@ delete thisweek;
 delete lcompleted;
 
 }
+```
+ le chemin par défaut, mais s'il n'existe pas, vous pouvez le changer dans le programme : 
+```ts
+app::app()
+{
+   
+    path = "/Users/Younes Imane /database.txt";
+    QWidget *widget = new QWidget;
+    setCentralWidget(widget);
+```
+Filters : 
+```ts
+QHBoxLayout *filtersLayout = new QHBoxLayout;
+    createFilters(filtersLayout);
+```
+créer un fichier : 
+```ts
+    QPixmap CreateIcon("://create.png");
+    CreateFile = new QAction(CreateIcon,"&Create &File",this);
+    CreateFile->setShortcut(tr("Ctrl+E"));
+     connect(CreateFile, &QAction::triggered, this, &app::Newfile);
+ ```
+ 
+Création Menu :
+```ts
+    createMenus();
+ ```
+Création d'une barre d'outils : 
+```ts
+    createtoolBar();
+ ```
+ajuster pour être après le samedi de la semaine : 
+```ts
+    if (dow < dowJan1){                 
+        ++weekNum;
+    }
+ ```
+ insertion de données : 
+ ```ts
+updateTable(IOManager::readFile(path));
+ ```
+Définissez la case à cocher comme non modifiable et cochez-la si nécessaire
+ ```ts
+qcb->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+        qcb->setFocusPolicy(Qt::NoFocus);
+        qcb -> setChecked(stoi(data.at(i)[2]) == 100);
+```
+Crée une autre tool Bar :
+ ```ts
+    auto tool2=addToolBar("Option");
+    tool2->addAction(ChangeFile);
+    auto tool3=addToolBar("File");
+    tool3->addAction(Exit);
+```
+Option
+ ```ts
+    QPixmap ChangeIcon("://change.png");
+    ChangeFile=new QAction(ChangeIcon,"Change &File",this);
+    ChangeFile->setShortcut(tr("Ctrl+R"));
+    connect(ChangeFile, &QAction::triggered, this, &app::changeFile);
 ```
