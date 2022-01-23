@@ -9,7 +9,7 @@
 app::app()
 {
     // This is the default path, but if it does not exist, you can change it into the program
-    path = "/Users/Ghita Farah /database.txt";
+    path = "/Users/Younes Imane /database.txt";
     QWidget *widget = new QWidget;
     setCentralWidget(widget);
 
